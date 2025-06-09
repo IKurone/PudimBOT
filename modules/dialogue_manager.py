@@ -35,7 +35,7 @@ class DialogueManager:
             "Ótimo! Sempre pronto para ajudar. Como você está se sentindo?",
             "Estou muito bem! Adoro conversar com você. E aí, como vai?",
             "Perfeito! Cada conversa me deixa mais feliz. E você?",
-            "Estou excelente! Sempre animado para nossos papos."
+            "Estou excelente! Sempre animado para nossas conversas."
         ]
 
         self.answer_for_how_are_you_responses = [
