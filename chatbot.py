@@ -182,7 +182,9 @@ class PudimBot:
             str: Resposta gerada
         """
         response = self._generate_response(text)
-        if response:
+        if response == "paused":
+            return "O bot está pausado. Por favor, ative-o novamente."
+        elif response:
             return response
         else:
             return self.dialogue.get_random_response('unknown')
@@ -226,7 +228,10 @@ class PudimBot:
         # Processa diferentes tipos de entrada
         response = self._generate_response(text)
         
-        if response:
+        if response == "paused":
+            print("🤖 Bot está pausado. Por favor, ative-o novamente.")
+            return  # Se estiver pausado, não faz nada
+        elif response:
             if self.debug:
                 print(f"🔍 DEBUG - Resposta: '{response}'")
             self.tts.speak(response)
@@ -238,30 +243,33 @@ class PudimBot:
     def _generate_response(self, text: str) -> Optional[str]:
         """Gera resposta baseada no texto de entrada"""
         # 1. Verifica interações sociais
-        if self.dialogue.is_social_interaction(text) and not self.dialogue.is_farewell(text):
-            return self.dialogue.handle_social_interaction(text)
-        
-        # 2. Verifica perguntas sobre data/hora
-        if self.time_manager.is_time_question(text):
-            return self.time_manager.format_time_response(text)
-        
-        # 3. Verifica perguntas sobre clima
-        if self.weather.is_weather_question(text):
-            return self.weather.format_weather_response()
-        
-        # 4. Comandos de controle
-        if self._is_control_command(text) or self.dialogue.is_farewell(text):
-            return self._handle_control_command(text)
-        
-        # 5. Busca nos PDFs
-        pdf_response = self.pdf_reader.answer_question(text)
-        if pdf_response:
-            return pdf_response
-        
-        # 6. Se não encontrou resposta específica, tenta busca geral nos PDFs
-        general_results = self.pdf_reader.search_in_content(text)
-        if general_results and "Não encontrei" not in general_results:
-            return general_results
+        if self.is_paused:
+            return "paused"
+        elif not self.is_paused:
+            if self.dialogue.is_social_interaction(text) and not self.dialogue.is_farewell(text):
+                return self.dialogue.handle_social_interaction(text)
+            
+            # 2. Verifica perguntas sobre data/hora
+            if self.time_manager.is_time_question(text):
+                return self.time_manager.format_time_response(text)
+            
+            # 3. Verifica perguntas sobre clima
+            if self.weather.is_weather_question(text):
+                return self.weather.format_weather_response()
+            
+            # 4. Comandos de controle
+            if self._is_control_command(text) or self.dialogue.is_farewell(text):
+                return self._handle_control_command(text)
+            
+            # 5. Busca nos PDFs
+            pdf_response = self.pdf_reader.answer_question(text)
+            if pdf_response:
+                return pdf_response
+            
+            # 6. Se não encontrou resposta específica, tenta busca geral nos PDFs
+            general_results = self.pdf_reader.search_in_content(text)
+            if general_results and "Não encontrei" not in general_results:
+                return general_results
         
         return None
     
