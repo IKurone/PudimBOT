@@ -80,7 +80,7 @@ class PDFReader:
     def clear_text(self, text: str) -> str:
         """Limpa o texto removendo espaços extras e caracteres especiais"""
         palavras_proibidas = [
-            'horário', 'aula', 'disciplina', 'matéria', 'turma', 'curso',
+            'horário','horario', 'aula', 'disciplina', 'matéria', 'turma', 'curso',
             'professor', 'sala', 'localização', 'local', 'qual',
             'é'
         ]
@@ -125,7 +125,7 @@ class PDFReader:
     def is_horario_question(self, text: str) -> bool:
         """Verifica se está perguntando como está"""
         questions = [
-            'horário','qual o horário', 'qual horário', 'horário da aula', 'horário da disciplina',
+            'horário','horario','qual o horário', 'qual horário', 'horário da aula', 'horário da disciplina',
             'horário da matéria', 'horário da turma', 'horário do curso', 'qual o horário da aula de', 'qual o horário da disciplina de','qual o horário da matéria de', 
             'qual o horário da turma de', 'qual é o horário',  'qual é o horário da aula', 'qual é o horário da disciplina', 'qual é o horário da matéria', 
             'qual é o horário da turma', 'qual é o horário do curso', 'horário de aula', 'horário de disciplina', 'horário de matéria', 
@@ -137,8 +137,7 @@ class PDFReader:
     def is_qual_professor_question(self, text: str) -> bool:
         """Verifica se está perguntando como está"""
         questions = [
-            'qual o professor', 'qual o professor da aula', 'qual o professor da disciplina', 'qual é o professor', 'qual professor', 'que professor',
-            'qual o professor da matéria', 'professor da aula de', 'professor da disciplina de', 'professor da matéria de', 'professor da turma de'
+            'professor de','professor da', 'professor do','qual o professor', 'qual o professor da aula', 'qual o professor da disciplina', 'qual é o professor', 'qual professor', 'que professor', 'qual o professor da matéria', 'professor da aula de', 'professor da disciplina de', 'professor da matéria de', 'professor da turma de'
         ]
         text_lower = text.lower().strip()
         return any(re.search(rf"\b{question}\b", text_lower) for question in questions)
