@@ -3,7 +3,7 @@ Módulo para utilitários de data e hora
 """
 from datetime import datetime, timedelta
 import locale
-
+import re
 
 class TimeManager:
     """Gerenciador de informações de data e hora"""
@@ -58,11 +58,12 @@ class TimeManager:
         """Verifica se a pergunta é sobre data/hora"""
         time_keywords = [
             'hora', 'horas', 'time', 'data', 'dia', 'hoje',
-            'agora', 'atual', 'quando', 'que dia', 'que hora'
+            'agora', 'atual', 'quando', 'que dia', 'que hora',
+            'que horas'
         ]
         
         text_lower = text.lower()
-        return any(keyword in text_lower for keyword in time_keywords)
+        return any(re.search(rf'\b{keyword}\b', text_lower) for keyword in time_keywords)
     
     def format_time_response(self, text: str) -> str:
         """Formata resposta sobre data/hora baseada na pergunta"""

@@ -243,6 +243,7 @@ class PudimBot:
     def _generate_response(self, text: str) -> Optional[str]:
         """Gera resposta baseada no texto de entrada"""
         # 1. Verifica interações sociais
+        print(f"🤖 Processando entrada: '{text}'")
         if self.is_paused:
             return "paused"
         elif not self.is_paused:

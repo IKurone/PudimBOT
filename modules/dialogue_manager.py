@@ -144,7 +144,7 @@ class DialogueManager:
         answers = [
             'estou bem', 'tudo bem', 'tudo ok', 'estou ótimo', 'estou legal',
             'estou feliz', 'estou tranquilo', 'estou de boa', 'tudo certo',
-            'tudo tranquilo', 'tudo beleza', 'tudo jóia', 'tudo em paz'
+            'tudo tranquilo', 'tudo beleza', 'tudo jóia', 'tudo em paz', 'tudo'
         ]
         
         text_lower = text.lower().strip()

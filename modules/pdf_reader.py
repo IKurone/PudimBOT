@@ -112,11 +112,10 @@ class PDFReader:
             # print(f"🔍 DEBUG - Pergunta processada: '{question_lower}'")
             return self.response_professor_question(question_lower)
         
-        # Não implementado ainda
-        # elif self.is_sala_question(question_lower):
-        #     question_lower = self.clear_text(question_lower)
-        #     # print(f"🔍 DEBUG - Pergunta processada: '{question_lower}'")
-        #     return self.response_sala_question(question_lower)
+        elif self.is_sala_question(question_lower):
+            question_lower = self.clear_text(question_lower)
+            # print(f"🔍 DEBUG - Pergunta processada: '{question_lower}'")
+            return self.response_sala_question(question_lower)
         
         else:
             return "❌ Pergunta não reconhecida. Tente reformular novamente."

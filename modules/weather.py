@@ -5,6 +5,7 @@ import requests
 import os
 from typing import Optional, Dict
 from datetime import datetime
+import re
 
 
 class WeatherManager:
@@ -98,4 +99,4 @@ class WeatherManager:
         ]
         
         text_lower = text.lower()
-        return any(keyword in text_lower for keyword in weather_keywords)
+        return any(re.search(rf'\b{keyword}\b', text_lower) for keyword in weather_keywords)

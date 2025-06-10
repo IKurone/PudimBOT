@@ -93,6 +93,9 @@ class STTManager:
                 return
                 
             self.recognizer = sr.Recognizer()
+            self.recognizer.energy_threshold = 400  # Ajuste para sensibilidade do microfone
+            self.recognizer.dynamic_energy_threshold = True
+            self.recognizer.pause_threshold = 1.5  # Tempo de pausa para considerar fim de fala
             self.microphone = sr.Microphone()
             
             # Ajusta para ruído ambiente
@@ -147,16 +150,6 @@ class STTManager:
                 print(f"❌ Erro na escuta RealtimeSTT: {e}")
                 time.sleep(1)
     
-    # def animacao_escutando(self, duracao=3):
-    #     print("🎤 Escutando", end="", flush=True)
-    #     inicio = time.time()
-    #     pontos = ["", ".", "..", "..."]
-    #     i = 0
-
-    #     while time.time() - inicio < duracao:
-    #         print(f"\r🎤 Escutando{pontos[i % 4]}", end="", flush=True)
-    #         i += 1
-    #         time.sleep(0.5)
 
         print()  # quebra de linha ao final
     def _speech_recognition_listen_loop(self):
